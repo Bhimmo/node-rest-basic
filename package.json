@@ -1,0 +1,22 @@
+{
+  "name": "nodeapi",
+  "version": "1.0.0",
+  "description": "Projeto node para criação de uma API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bhimmo/node-rest.git"
+  },
+  "author": "Daniel Lucas dos Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bhimmo/node-rest/issues"
+  },
+  "homepage": "https://github.com/Bhimmo/node-rest#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
