@@ -4,7 +4,8 @@
   "description": "Projeto node para criação de uma API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "dev": "nodemon ./src/routes/server/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,13 @@
   },
   "homepage": "https://github.com/Bhimmo/node-rest#readme",
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prisma": "^3.12.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.12.0",
+    "express": "^4.17.3",
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
   }
 }
