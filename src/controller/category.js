@@ -1,11 +1,10 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require('../lib/prisma')
 const controller = {};
 
 controller.create = async (dados) => {
     const { description } = dados;
 
-    const category = await prisma.categoryUsers.create({
+    const category = await prisma.CategoryUsers.create({
         data: { description }
     });
 
@@ -13,7 +12,7 @@ controller.create = async (dados) => {
 }
 
 controller.getAll = async () => {
-    const result = await prisma.categoryUsers.findMany();
+    const result = await prisma.CategoryUsers.findMany();
 
     if (!result) {
         throw new Error("Error em buscar as categorias");
@@ -22,10 +21,8 @@ controller.getAll = async () => {
     return result;
 }
 
-controller.getOneCategory = async (dadosParam) => {
-    let { id } = dadosParam;
-
-    const result = await prisma.categoryUsers.findUnique({
+controller.getOneCategory = async (id) => {
+    const result = await prisma.CategoryUsers.findUnique({
         where: {
             id
         }
@@ -37,11 +34,10 @@ controller.getOneCategory = async (dadosParam) => {
     return result;
 }
 
-controller.alterCategory = async (dadosParam, dadosBody) => {
-    let { id } = dadosParam;
-    let { description } = dadosBody;
+controller.alterCategory = async (id, dados) => {
+    let { description } = dados;
 
-    const result = await prisma.categoryUsers.update({
+    const result = await prisma.CategoryUsers.update({
         where: { id },
         data: { description }
     });
@@ -49,10 +45,9 @@ controller.alterCategory = async (dadosParam, dadosBody) => {
     return result
 }
 
-controller.delete = async (dadosParam) => {
-    let { id } = dadosParam;
+controller.delete = async (id) => {
 
-    return await prisma.categoryUsers.delete({
+    return await prisma.CategoryUsers.delete({
         where: { id }
     });
 }

@@ -2,10 +2,10 @@ const app = require('../server/app');
 const categoryController = require('../../controller/category');
 
 app.post('/category', async (req, res) => {
+    const dados = req.body;
 
     try {
-        const createCategory = await categoryController.create(req.body);
-        console.log(createCategory);
+        const createCategory = await categoryController.create(dados);
 
         res.json(createCategory); 
     } catch (error) {
@@ -13,10 +13,9 @@ app.post('/category', async (req, res) => {
     }
 });
 
-app.get('/', async (req, res) => {
+app.get('/category', async (req, res) => {
     try {
         const getCategory = await categoryController.getAll();
-        console.log(getCategory);
 
         res.json(getCategory);
     } catch (error) {
@@ -24,9 +23,10 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.get('/:id', async (req, res) => {
+app.get('/category/:id', async (req, res) => {
+    const { id } = req.params;
     try {
-        const getOneCategory = await categoryController.getOneCategory(req.params);
+        const getOneCategory = await categoryController.getOneCategory(id);
 
         res.json(getOneCategory);
     } catch (error) {
@@ -34,9 +34,11 @@ app.get('/:id', async (req, res) => {
     }
 });
 
-app.patch('/:id', async (req, res) => {
+app.patch('/category/:id', async (req, res) => {
+    const { id } = req.params;
+    const dados = req.body;
     try {
-        const alterCategory = await categoryController.alterCategory(req.params, req.body);
+        const alterCategory = await categoryController.alterCategory(id, dados);
 
         res.json(alterCategory);
     } catch (error) {
@@ -44,9 +46,11 @@ app.patch('/:id', async (req, res) => {
     }
 });
 
-app.delete('/:id', async (req, res) => {
+app.delete('/category/:id', async (req, res) => {
+    const { id } = req.params;
+
     try {
-        await categoryController.delete(req.params);
+        await categoryController.delete(id);
 
         res.status(204).json({});
     } catch (error) {
