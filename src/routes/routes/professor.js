@@ -1,7 +1,11 @@
-const app = require("../server/app");
+const express = require('express');
+const router = express.Router();
 const professorController = require("../../controller/professor");
+const authMiddleware = require('../../middleware/auth');
 
-app.get('/professor', async (req, res)=> {
+router.use(authMiddleware);
+
+router.get('/professor', async (req, res)=> {
     try {
         let getProfessor = await professorController.getAllProfessor();
 
@@ -13,7 +17,7 @@ app.get('/professor', async (req, res)=> {
     }
 })
 
-app.post('/professor', async (req, res)=> {
+router.post('/professor', async (req, res)=> {
     const dados = req.body;
 
     try {
@@ -28,4 +32,4 @@ app.post('/professor', async (req, res)=> {
     }
 })
 
-module.exports = app;
+module.exports = app => app.use('/v1', router);

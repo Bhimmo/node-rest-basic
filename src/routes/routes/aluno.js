@@ -1,7 +1,8 @@
-const app = require("../server/app");
+const express = require('express');
+const router = express.Router();
 
-app.get('/alunos', (req, res)=> {
+router.get('/alunos', (req, res)=> {
     res.send({message: "Hello World!"});
 })
 
-module.exports = app;
+module.exports = app => app.use('', router);

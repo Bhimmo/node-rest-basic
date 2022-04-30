@@ -1,7 +1,8 @@
-const app = require('../server/app');
+const express = require('express');
+const router = express.Router();
 const categoryController = require('../../controller/category');
 
-app.post('/category', async (req, res) => {
+router.post('/category', async (req, res) => {
     const dados = req.body;
 
     try {
@@ -13,7 +14,7 @@ app.post('/category', async (req, res) => {
     }
 });
 
-app.get('/category', async (req, res) => {
+router.get('/category', async (req, res) => {
     try {
         const getCategory = await categoryController.getAll();
 
@@ -23,7 +24,7 @@ app.get('/category', async (req, res) => {
     }
 });
 
-app.get('/category/:id', async (req, res) => {
+router.get('/category/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const getOneCategory = await categoryController.getOneCategory(id);
@@ -34,7 +35,7 @@ app.get('/category/:id', async (req, res) => {
     }
 });
 
-app.patch('/category/:id', async (req, res) => {
+router.patch('/category/:id', async (req, res) => {
     const { id } = req.params;
     const dados = req.body;
     try {
@@ -46,7 +47,7 @@ app.patch('/category/:id', async (req, res) => {
     }
 });
 
-app.delete('/category/:id', async (req, res) => {
+router.delete('/category/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -58,4 +59,4 @@ app.delete('/category/:id', async (req, res) => {
     }
 })
 
-module.exports = app;
+module.exports = app => app.use('/v1', router);

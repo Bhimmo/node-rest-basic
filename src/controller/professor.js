@@ -4,7 +4,11 @@ const serviceCategoryUsers = require('./category')
 const controller = {};
 
 controller.getAllProfessor = async () => {
-    const result = await prisma.Users.findMany();
+    const result = await prisma.Users.findMany({
+        include: {
+            category: true
+        }
+    });
 
     if (!result) {
         throw new Error("Error em buscar os professores");
@@ -13,22 +17,34 @@ controller.getAllProfessor = async () => {
     return result
 }
 
+controller.getOneByName = async (name) => {
+    const result = await prisma.Users.findFirst({
+        where: { name }
+    });
+
+    if (!result) throw new Error("Teacher not found");
+
+    return result;
+}
+
 controller.createProfessor = async (dados) => {
     const { name, categoryId } = dados;
 
     try {
         const category = await serviceCategoryUsers.getOneCategory(categoryId);
-
-        if (!category) {
+        console.log(category.description);
+        if (category.description != 'Professor') {
             throw new Error("Category invalid")
+        } else {
+            console.log("ENTROU");
+            const result = await prisma.Users.create({
+                data: { name, categoryId }
+            });
+            return result
         }
 
-        const result = await prisma.Users.create({
-            data: { name, categoryId }
-        });
-        return result
     } catch (error) {
-        throw new Error("id category invalid")
+        throw new Error("the category is not a teacher")
     }
 }
 
