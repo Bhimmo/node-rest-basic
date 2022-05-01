@@ -3,8 +3,11 @@
 #### Fazendo api no padrão REST
 
 ### Sistemas de provas
+- Categoria
 - Aluno
 - Professor
-- Prova
-- Questões
-- Resultado
+
+## Usados na aplicação
+- Express
+- NoSql (MongoDB)
+- JsonWebToken
